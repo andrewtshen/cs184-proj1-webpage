@@ -44,13 +44,13 @@
   <table style="width=100%">
   	<tr>
   		<td>
-	        <img src="images/part1_formula.png" align="middle" width="400px"/>
+	        <img src="images/task1_formula.png" align="middle" width="400px"/>
 	        <figcaption align="middle">"Inside Triangle" Formula</figcaption>
       	</td>
   	</tr>
     <tr>
       <td>
-        <img src="images/part1.png" align="middle" width="400px"/>
+        <img src="images/task1.png" align="middle" width="400px"/>
         <figcaption align="middle">Colorful Triangles (basic/test4.svg)</figcaption>
       </td>
     </tr>
@@ -60,6 +60,37 @@
 
 
 <h3 align="middle">Part 2: Antialiasing triangles</h3>
+<p>
+	The supersampling algorithm we implemented works as follows. We will use the sample bounding box as we did in Task 1. For each pixel in the bounding box, we then compute the location of each of the subsamples within that box and iterate through each of those subsamples. From here, we perform the same algorithm in Task 1 to compute whether or not the subsample is within the triangle and store it in the proper place in the sample_buffer data structure (which we will go into later on in this paragraph). Then in the resolve_to_framebuffer function, we use the sample_buffer in order to take the average of the subsamples that correspond to a given pixel to compute its value. Diving deeper into the sample_buffer, we effectively use it to store a grid of all of the subsamples with the same index method as in the original pixel screen. Because the sample_buffer depends on the number of subsamples, we must reallocate the sample_buffer each time that we change the sample_size. 
+</p>
+<p>
+	Although supersampling is more inefficient as it scales based on the sample_size, it is very helpful in antialiasing and creating smoother edges as we first adjust our sampling to a higher frequency to capture the high frequency signals in our image and then smooth over those higher frequencies by averaging subsamples together. This is most apparent in the examples displayed below in which there is a clear artifact from aliasing in the 1 sample/pixel, which is then smoothed over in the 16 samples/pixel and the true nature of the triangle is revealed.
+</p>
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/task2_1ss.png" align="middle" width="400px"/>
+        <figcaption align="middle">Supersampling (1 sample/px)</figcaption>
+      </td>
+      <td>
+        <img src="images/task2_4ss.png" align="middle" width="400px"/>
+        <figcaption align="middle">Supersampling (4 samples/px)</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr>
+      <td>
+        <img src="images/task2_9ss.png" align="middle" width="400px"/>
+        <figcaption align="middle">Supersampling (9 samples/px)</figcaption>
+      </td>
+      <td>
+        <img src="images/task2_16ss.png" align="middle" width="400px"/>
+        <figcaption align="middle">Supersampling (16 samples/px)</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
 
 
 
@@ -147,27 +178,41 @@
 </div>
 
 <h3 align="middle">Part 6: "Level sampling" with mipmaps for texture mapping</h3>
+
+<p>
+	Level sampling is performed using the mipmap in order to retrieve different resolutions of the same image. In this manner, we can apply textures of different resolutions to different parts of the image depending on how it is warped. This enables to maintain the similar amounts of accuracy and detail to regions that are not warped heavily by using higher resolutions levels of the mipmap. On the other hand, regions that are heavily warped still have the correct overarching texture as they use a lower resolution.	In order to determine which level of the mipmap to use, we first approximate the level by finding the distance to the nearest point and applying the log function. Then, we determine the correct level to use in two different ways. The first is to use the nearest level by rounding the approximate level. The second is to interpolate by taking a weighted average of the respective textures drawn from the two mipmap levels.
+</p>
+
+<p>
+	
+</p>
+
+You can now adjust your sampling technique by selecting pixel sampling, level sampling, or the number of samples per pixel. Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.
+Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST, L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR.
+To use your own png, make a copy of one of the existing svg files in svg/texmap/ (or create your own modelled after one of the provided svg files). Then, near the top of the file, change the texture filename to point to your own png. From there, you can run ./draw and pass in that svg file to render it and then save a screenshot of your results.
+Note: Choose a png that showcases the different sampling effects well. You may also want to zoom in/out, use the pixel inspector, etc. to demonstrate the differences.
+
 <div align="middle">
   <table style="width=100%">
     <tr>
       <td>
-        <img src="images/image1.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
+        <img src="images/task6_L0_PN.png" align="middle" width="400px"/>
+        <figcaption align="middle">Yosemite (Level 0, Nearest Pixel Sampling)</figcaption>
       </td>
       <td>
-        <img src="images/image2.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
+        <img src="images/task6_L0_PL.png" align="middle" width="400px"/>
+        <figcaption align="middle">Yosemite (Level 0, Bilinear Pixel Sampling).</figcaption>
       </td>
     </tr>
     <br>
     <tr>
       <td>
-        <img src="images/image3.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
+        <img src="images/task6_LN_PN.png" align="middle" width="400px"/>
+        <figcaption align="middle">Yosemite (Level Nearest, Pixel Nearest Sampling)</figcaption>
       </td>
       <td>
-        <img src="images/image4.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
+        <img src="images/task6_LN_PL.png" align="middle" width="400px"/>
+        <figcaption align="middle">Yosemite (Level Nearest, Bilinear Pixel Sampling</figcaption>
       </td>
     </tr>
   </table>
