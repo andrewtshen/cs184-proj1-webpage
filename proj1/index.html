@@ -32,14 +32,50 @@
 <div>
 
 <h2 align="middle">Overview</h2>
-<p>Give a high-level overview of what you implemented in this project. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the project.</p>
+<p>During this project we implement methods to efficiently and cleanly render an image in a process called rasterization. Using Barycentric coordinates, we were able to implement texture mapping so that we could apply textures to rasterized triangles. In addition, we also implemented transformations that allowed us to translate, scale, and rotate the image. We found it very interesting to go through the entire pipeline of processing and displaying an image. The rasterization process taught us a lot about the importance of paying close attention to small details in the algorithms. Though they might appear simple and easy to comprehend, small error such as off by one errors can have a drastic impact on the outcome of the renders. For example in some cases, failing to clip values to the right bounds resulted in outlines of triangles appearing and other unexpected artifacts. In all, this project gave us valuable insight to the basics of rasterization -- allowing us to take a peek under the hood of a complex process.</p>
 
 <h2 align="middle">Section I: Rasterization</h2>
 
 <h3 align="middle">Part 1: Rasterizing single-color triangles</h3>
 
-<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+<p>In order to rasterize triangles, we first find the bounds by computing the min and max of the x and y coordinates for each vertex of the triangle. This enables us to narrow down our search significantly for potential points within this triangle. Then, we iterated through each possible point within that bounding box and performed the point-in-triangle test (as shown in the picture below) to determine if the point was in the triangle. If it was determined to be in the triangle, then that pixel would then be colored with its respective color. As a slight naunce, depending on the order of the point, the inside check may potentially fail and actually give the region outside the triangle. To correct for this, we can add an additional conditional that flips the inequality to make the triangle representation order agnositc. Finally, this algorithm is no worse than one that checks each sample in the bounding box as our algorithm goes through each pixel in the bounding box exactly once.</p>
 
+<div align="middle">
+  <table style="width=100%">
+  	<tr>
+  		<td>
+	        <img src="images/part1_formula.png" align="middle" width="400px"/>
+	        <figcaption align="middle">"Inside Triangle" Formula</figcaption>
+      	</td>
+  	</tr>
+    <tr>
+      <td>
+        <img src="images/part1.png" align="middle" width="400px"/>
+        <figcaption align="middle">Colorful Triangles (basic/test4.svg)</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
+
+
+<h3 align="middle">Part 2: Antialiasing triangles</h3>
+
+
+
+<h3 align="middle">Part 3: Transforms</h3>
+
+
+
+<h2 align="middle">Section II: Sampling</h2>
+
+<h3 align="middle">Part 4: Barycentric coordinates</h3>
+
+
+<h3 align="middle">Part 5: "Pixel sampling" for texture mapping</h3>
+
+
+<h3 align="middle">Part 6: "Level sampling" with mipmaps for texture mapping</h3>
 <div align="middle">
   <table style="width=100%">
     <tr>
@@ -65,26 +101,6 @@
     </tr>
   </table>
 </div>
-
-
-<h3 align="middle">Part 2: Antialiasing triangles</h3>
-
-
-
-<h3 align="middle">Part 3: Transforms</h3>
-
-
-
-<h2 align="middle">Section II: Sampling</h2>
-
-<h3 align="middle">Part 4: Barycentric coordinates</h3>
-
-
-<h3 align="middle">Part 5: "Pixel sampling" for texture mapping</h3>
-
-
-<h3 align="middle">Part 6: "Level sampling" with mipmaps for texture mapping</h3>
-
 
 
 <h2 align="middle">Section III: Art Competition</h2>
