@@ -115,7 +115,9 @@
   the same barycentric coordinates and the vertices of the texture space triangle. Once we had the corresponding point in texture space, we used either nearest or bilinear pixel sampling to map the color onto the screen. Nearest pixel sampling
   works by rounding the coordinates (x, y) to the nearest pixel. On the other hand, bilinear pixel sampling
   finds and utilizes the nearest four pixels relative to (x, y). It computes a weighted sum on those four pixels by 
-  performing two instances of linear interpolation.
+  performing two instances of linear interpolation. In the images below, you can see that bilinear sampling does a better job of blending the colors along the edges.
+  There will be a more noticeable difference between the two methods when encountering high frequencies. Nearest pixel sampling will have sharper edges, whereas bilinear pixel sampling 
+  will have edges that are more smoothed out because it computes color using four distinct pixels rather than one.
 </p>
 
 <div align="middle">
