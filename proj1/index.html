@@ -188,6 +188,10 @@
 </p>
 
 <p>
+	Level sampling is helpful in that it removes the effects of oversampling by allowing our rending algorithm to sample from precomputed lower resolution in order to remove aliasing and Moire patterns at high viewing distances. Pixels at a closer viewing distance are sampled from higher resolution levels of the texture sample. This technique does come at a cost of higher memory cost and some precomputation in order to actually obtain the lower resolution versions of the textures, however it does result in better realtime rendering as the results are precomputed in addition to the fact that lower resolution levels are small and can be more easily cached.
+</p>
+
+<p>
 	Increasing the number of samples per pixel is beneficial in that it helps to remove aliasing artifacts by sampling at a higher frequency to capture the high frequency signals in the image. This comes at the cost of a higher memory usage (at least for our naive implementation) as the sample_buffer will be larger. In addition, the computational complexity will also increase as the algorithm will now scale with the sample_rate as we will need to compute more checks if the subsample is in the triangle and also determining the question.
 </p>
 
