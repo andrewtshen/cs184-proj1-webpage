@@ -140,8 +140,8 @@
 
 <h3 align="middle">Part 5: "Pixel sampling" for texture mapping</h3>
 
-<p> Pixel sampling is mapping the values or colors from some texture onto the screen.
-  In order to implement texture mapping, we calculated the barycentric coordinates of each sample within the triangle
+<p> Pixel sampling involves finding the pixels around a coordinate and using the color values of those pixels to more accurately represent the color at that coordinate.
+  In order to use pixel sampling to implement texture mapping, we calculated the barycentric coordinates of each sample within the triangle
   in screen space. Then, we calculated the position of the corresponding point in texture space using
   the same barycentric coordinates and the vertices of the texture space triangle. Once we had the corresponding point in texture space, we used either nearest or bilinear pixel sampling to map the color onto the screen. Nearest pixel sampling
   works by rounding the coordinates (x, y) to the nearest pixel. On the other hand, bilinear pixel sampling
