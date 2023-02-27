@@ -169,7 +169,12 @@
   Briefly explain how you implemented the area-weighted vertex normals.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    We implemented area-weighted vertex normals by iterating through the faces in contact
+    with the vertex. We started with the vertex's half-edge, then progressed onto its twin's next 
+    half-edge, and so on until we reach the same half-edge that we started with. Each half-edge corresponds to a 
+    different face, so for each face, we take its normal and add it to a running sum vector. After we have iterated 
+    through every face at the vertex, we return the average of the running sum vector, which we calculate by dividing the vector by
+    the number of faces.
 </p>
 <br>
 
@@ -177,6 +182,20 @@
 <b>
   Show screenshots of dae/teapot.dae (not .bez) comparing teapot shading with and without vertex normals. Use <kbd>Q</kbd> to toggle default flat shading and Phong shading.
 </b>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/proj2_part3_teapot_without_vertex_normals.png" align="middle" width="400px"/>
+        <figcaption>Teapot without vertex normals</figcaption>
+      </td>
+      <td>
+        <img src="images/proj2_part3_teapot_with_vertex_normals.png" align="middle" width="400px"/>
+        <figcaption>Teapot with vertex normals</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
 <p>
     YOUR RESPONSE GOES HERE
 </p>
