@@ -253,26 +253,59 @@
   Briefly explain how you implemented the edge split operation and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    We set variables for each mesh element involved in the edge flip similarly to the last question. More specifically, there are 16 half-edges, 7 edges, 5 vertices, and 4 faces in total. We used temporary variables similarly to Task 4 in order to hold intermediate values and also created 6 new half-edges, 3 new edges, 1 new vertex, and 2 new faces. In order to change as little as possible, we try to leave as many mesh objects in the same location only really changing around the assignments for the "inner" portion of the split. To implement everything, we first listed out all of the half-edges, edges, vertices, and faces so that we would not accidentally forget to update anything and tried to be as systematic as possible. Below is the diagram that we drew out in order to map out the mesh elements to the correct place.
 </p>
 <br>
 
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/proj2_part5_split_diagram.png" align="middle" width="400px"/>
+        <figcaption>Split Diagram</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
 
 <b>
     Show screenshots of a mesh before and after some edge splits. 
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/proj2_part5_original_beetle.png" align="middle" width="400px"/>
+        <figcaption>Beetle car without edge splits</figcaption>
+      </td>
+      <td>
+        <img src="images/proj2_part5_split_beetle.png" align="middle" width="400px"/>
+        <figcaption>Beetle car with edge splits</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
 <br>
 
 
 <b>
     Show screenshots of a mesh before and after a combination of both edge splits and edge flips.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/proj2_part5_original_weird.png" align="middle" width="400px"/>
+        <figcaption>Beetle car without edge splits</figcaption>
+      </td>
+      <td>
+        <img src="images/proj2_part5_split_flip_weird.png" align="middle" width="400px"/>
+        <figcaption>Beetle car with edge splits</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
 <br>
 
 
@@ -280,7 +313,7 @@
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    Thankfully we didn't experience too much of an eventful debugging journey. The only problems we encountered were one or two mistakes in the assignment of variables which we fixed by carefully double checking all of the values and making sure everything was consistent with the implementation and the diagram.
 </p>
 <br>
 
@@ -289,7 +322,7 @@
     If you have implemented support for boundary edges, show screenshots of your implementation properly handling split operations on boundary edges.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+    We did not get to this.
 </p>
 <br>
 
