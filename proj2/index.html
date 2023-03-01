@@ -337,7 +337,7 @@
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
-    Thankfully we didn't experience too much of an eventful debugging journey. The only problems we encountered were one or two mistakes in the assignment of variables which we fixed by carefully double checking all of the values and making sure everything was consistent with the implementation and the diagram.
+    Thankfully we didn't experience too much of an eventful debugging journey. The only problems we encountered were one or two mistakes in the assignment of variables which we fixed by carefully double checking all of the values and making sure everything was consistent with the implementation and the diagram. We also encountered an error in which a half edge that we didn't think needed to be updated actually had to be updated. We fixed this by updating the half edge and overwriting all mesh elements involved in the edge flip process.
 </p>
 <br>
 
@@ -356,12 +356,7 @@
   Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    First, we set all existing vertices and edges' isNew value to false. This ensures that we can check whether an edge or vertex was part of the original mesh. Next, we computed the new positions for all existing
-    vertices according to the loop subdivision rule. This involved checking the degree of the vertex and also the positions
-    of its neighboring vertices. Then, we calculated the positions of the new vertices that would result from splitting edges.
-    After that, we split every edge that is part of the original mesh and assign the new resulting vertex the position stored at that edge. 
-    Next, we flip any new edges that connect an original vertex to a new vertex. Finally, we update the 
-    original vertices with their new positions that we calculated near the start of this process, completing our loop subdivision. 
+    First, we set all existing vertices and edges' isNew value to false. This ensures that we can check whether an edge or vertex was part of the original mesh. Next, we computed the new positions for all existing vertices according to the loop subdivision rule. This involved checking the degree of the vertex and also the positions of its neighboring vertices. Then, we calculated the positions of the new vertices that would result from splitting edges. After that, we split every edge that is part of the original mesh and assign the new resulting vertex the position stored at that edge. Next, we flip any new edges that connect an original vertex to a new vertex. Finally, we update the original vertices with their new positions that we calculated near the start of this process, completing our loop subdivision. The docstrings were very thorough and we followed them pretty closely, which worked out well for us though we did have to be a little careful about how we kept track of new mesh elements.
 </p>
 <br>
 
