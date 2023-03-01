@@ -54,7 +54,14 @@
     Using de Casteljau's algorithm, we were able to evaluate Bezier curves given a set of control points. We later extended
     this implementation to work for 2D sets of control points, allowing us to generate Bezier surfaces. Afterwards, we implemented
     methods that would allow us to modify triangle meshes in order to give them a smoother and more satisfying appearance. This involved
-    using vertex normals, flipping edges, splitting edges, 
+    using vertex normals, flipping edges, splitting edges, and upsampling with loop subdivision. We found it very interesting to
+    implement the calculations behind Bezier curves and surfaces, as well as the various techniques involved in working with
+    triangle meshes. At first, meshes seemed complicated to work with, given the numerous variables associated with their elements.
+    However, as we took more time to understand half-edges and the different data structures using them, we were able to gain
+    a better understanding and intuition as to how meshes were represented and how to correctly modify them. During the process of
+    implementing the modifications, we learned how important it was to use diagrams and visualizations, as the multiple variables involved
+    could get convoluted very easily. Overall, this project gave us valuable insight to triangle meshes, how they work, and why they are 
+    important to computer graphics.
 </p>
 <br>
 
