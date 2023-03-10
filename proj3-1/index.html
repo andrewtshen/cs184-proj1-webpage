@@ -105,7 +105,15 @@ Show images with normal shading for a few small .dae files. -->
   Explain the triangle intersection algorithm you implemented in your own words.
 </h3>
 <p>
-    YOUR RESPONSE GOES HERE
+    For ray-triangle intersections, we implemented the Moller Trumbore algorithm as described in lecture. It is an efficient algorithm for
+    calculating the intersection of a ray and triangle because it doesn't need to solve the plane equation for the plane
+    containing the triangle. The intersection point calculated by the algorithm is always within the triangle and is therefore correct,
+    given valid barycentric coordinates and t-value. The algorithm takes advantage of the fact that barycentric coordinates are invariant, so instead
+    of solving for the intersection point in x,y,z coordinates, it solves it in barycentric coordinates, guaranteeing that the intersection point will lie within the triangle if it exists. 
+
+    In our implementation, we first set all the known variables, which are the triangle edges. Next, we solve for the three unknowns: t, b1, and b2.
+    We solve for them one at a time, each time checking for validity. For t, we check if it is within the ray's t-range. For b1 and b2,
+    we check if they are valid barycentric coordinates, as in they are within 0 and 1 and don't sum to a value greater than 1.
 </p>
 <br>
 
@@ -117,12 +125,12 @@ Show images with normal shading for a few small .dae files. -->
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example1.dae</figcaption>
+        <img src="images/CBempty.png" align="middle" width="400px"/>
+        <figcaption>CBempty.dae</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example2.dae</figcaption>
+        <img src="images/CBspheres.png" align="middle" width="400px"/>
+        <figcaption>CBspheres.dae</figcaption>
       </td>
     </tr>
     <tr align="center">
