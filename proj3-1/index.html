@@ -90,7 +90,7 @@ Show images with normal shading for a few small .dae files. -->
 </p>
 
 <p>
-	Since we want to use Monte Carlo approximation to render the color of the pixel we sample a total of num_samples = ns_aa samples. For each sample, we take a random 2D vector drawn uniformly from a unit square and add it to the origin point to get the vector within the pixel that we wish to sample. Then using the ray generation function from before as well as the est_radiance_global_illumination function, we can compute an average color for the pixel by summing the result of each individual ray and dividng by the total number of samples taken.
+	Since we want to use Monte Carlo approximation to render the color of the pixel we sample a total of <i>num_samples = ns_aa</i> samples. For each sample, we take a random 2D vector drawn uniformly from a unit square and add it to the origin point to get the vector within the pixel that we wish to sample. Then using the ray generation function from before as well as the <i>est_radiance_global_illumination</i> function, we can compute an average color for the pixel by summing the color of each individual ray and dividng by the total number of samples taken.
 </p>
 
 <br>
