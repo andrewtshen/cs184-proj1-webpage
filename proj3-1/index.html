@@ -112,10 +112,12 @@ Show images with normal shading for a few small .dae files. -->
 <br>
 <div align="middle">
   <table style="width:100%">
-    <td>
-      <img src="images/MollerTrumbore.png" align="middle" width="400px"/>
-      <figcaption>Moller Trumbore Algorithm</figcaption>
-    </td>
+    <tr align="center">
+      <td>
+        <img src="images/MollerTrumbore.png" align="middle" width="400px"/>
+        <figcaption>Moller Trumbore Algorithm</figcaption>
+      </td>
+    </tr>
   </table>
 </div>
 
@@ -210,7 +212,20 @@ Compare the results between uniform hemisphere sampling and lighting sampling in
   Walk through both implementations of the direct lighting function.
 </h3>
 <p>
-    YOUR RESPONSE GOES HERE
+    In the uniform hemisphere sampling implementation, since we are trying to calculate the amount of light arriving
+    in a hemisphere around the hit point, we implement a Monte Carlo estimator to approximate the integral. We have a loop 
+    where in each iteration, we take a hemisphere sample.
+    Using that sample and the hit point, we cast a ray and check if it 
+    intersects any primitives in the BVH. If so, we compute the reflection equation to calculate the amount of outgoing 
+    light and add it to a running sum vector. After taking all the samples and repeating the process above, we return the average,
+    thus completing the Monte Carlo estimator.
+
+    In the direct sampling implementation, we want to sample all the lights directly, resulting in a less noisy render. 
+    For each light in the scene, we sample directions between the light and the hit-point. Like in the uniform hemisphere
+    sampling implementation, we cast a ray between the sample and the hit point. If it doesn't intersect with any primitives
+    in the BVH, then we know the light illuminates the hit point and we can compute the reflection equation like before. Again,
+    we average the running sum with the total number of samples taken and return it.
+    
 </p>
 
 <h3>
