@@ -159,7 +159,11 @@ Compare rendering times on a few scenes with moderately complex geometries with 
   Walk through your BVH construction algorithm. Explain the heuristic you chose for picking the splitting point.
 </h3>
 <p>
-    YOUR RESPONSE GOES HERE
+    Our BVH construction algorithm recusively splits a vector of primitives until that vector of primitives is less than <i>max_leaf_size</i>. For each node in the BVH, we begin by computing the bounding box for all items that are contained within that node and its left and right nodes if it has any. Then, depending on the number of primtives that are contained in this node, we either recurse by splitting the primitives into one of two groups based on our heuristic or turn the node into a leaf node which contains a pointer to the start and end of the list of the primitives. In order to ensure that we do not have infinite recursion in the event that our heuristic splits the primitives into one group with none of the primitives and another group with all of the primitives, we enforce that there must be at least one primitive in each subnode. This ensures that the number of primitives contained in children nodes is strictly less than the parent nodes and so the algorithm will terminate.
+</p>
+
+<p>
+	Our heuristic algorithm is based on the average centroid of all of the primitives contained within the node and splits based on the either the x, y, or z axis depending on which one has the highest variance. To roughly calculate the variance, we compute the sum of the squared difference from each centroid to the average centroid. Then, we split the primtives into two groups based on whether its centroid is less than or greater than the average centroid in the axis with the greatest sum of squared difference.
 </p>
 
 <h3>
@@ -170,22 +174,22 @@ Compare rendering times on a few scenes with moderately complex geometries with 
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example1.dae</figcaption>
+        <img src="images/cow.png" align="middle" width="400px"/>
+        <figcaption>cow.dae</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example2.dae</figcaption>
+        <img src="images/maxplanck.png" align="middle" width="400px"/>
+        <figcaption>maxplanck.dae</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example3.dae</figcaption>
+        <img src="images/CBlucy.png" align="middle" width="400px"/>
+        <figcaption>CBlucy.dae</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example4.dae</figcaption>
+        <img src="images/teapot.png" align="middle" width="400px"/>
+        <figcaption>teapot.dae</figcaption>
       </td>
     </tr>
   </table>
@@ -196,8 +200,69 @@ Compare rendering times on a few scenes with moderately complex geometries with 
   Compare rendering times on a few scenes with moderately complex geometries with and without BVH acceleration. Present your results in a one-paragraph analysis.
 </h3>
 <p>
-    YOUR RESPONSE GOES HERE
+    We compared the effects of the BVH acceleration as outline by the table below. As we can see by the right most column (Speed Up), we can see that BVH accerlation does wonders to improve the total time to render, cutting each render down to less than a second. In addition, the number of rays traced is reduced after using BVH accerlation. There are other statistics as reported by the different commands, but for sake of brevity we decided to omit them to keep only the most revealing statistics. In general, the average number of intersection tests per ray decreases sharply and the number of rays computed per second sharply increases, which makes sense as the two values should be inversely proportional.
 </p>
+
+<!-- Example of including multiple figures -->
+<div align="middle">
+  <table border="1">
+    <tr>
+      <th>Image</th>
+      <th># Primatives</th>
+      <th># Rays Traced</th>
+      <th>Time to Render (s)</th>
+      <th>[BVHAccel] # Rays Traced</th>
+      <th>[BVHAccel] Time to Render (s)</th>
+      <th>Speed Up (Time to Render / BVHAccel Time to Render)</th>
+    </tr>
+    <tr>
+      <td style="text-align: center">cow.dae</td>
+      <td style="text-align: center">5856</td>
+      <td style="text-align: center">474844</td>
+      <td style="text-align: center">5.89</td>
+      <td style="text-align: center">206598</td>
+      <td style="text-align: center">0.0644</td>
+      <td style="text-align: center">91.46x</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">CBlucy.dae</td>
+      <td style="text-align: center">133796</td>
+      <td style="text-align: center">363510</td>
+      <td style="text-align: center">380.45</td>
+      <td style="text-align: center">166431</td>
+      <td style="text-align: center">0.0739</td>
+      <td style="text-align: center">5148.17x</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">maxplanck.dae</td>
+      <td style="text-align: center">50801</td>
+      <td style="text-align: center">368148</td>
+      <td style="text-align: center">72.72</td>
+      <td style="text-align: center">198518</td>
+      <td style="text-align: center">0.0679</td>
+      <td style="text-align: center">1071.037x</td>
+    </tr>
+  </table>
+</div>
+<br>
+
+<!-- Example of including multiple figures -->
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/maxplanck_BVHaccel.png" align="middle" width="400px"/>
+        <figcaption>Statistics for generating maxplanck.png with BVH accel</figcaption>
+      </td>
+      <td>
+        <img src="images/maxplanck_no_BVHaccel.png" align="middle" width="400px"/>
+        <figcaption>Statistics for generating maxplanck.png without BVH accel</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
+
 <br>
 
 <h2 align="middle">Part 3: Direct Illumination (20 Points)</h2>
