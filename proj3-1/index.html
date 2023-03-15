@@ -395,7 +395,7 @@ You will probably want to use the instructional machines for the above renders i
   Walk through your implementation of the indirect lighting function.
 </h3>
 <p>
-    YOUR RESPONSE GOES HERE
+    Our global illumination estimate lighting function works by computing the radiance resulting from zero bounce lighting (<i>zero_bounce_radiance</i>) and at least one bounce lighting (<i>at_least_one_bounce_radiance</i>). <i>zero_bounce_radiance</i> computes the light from only the light sources in the image, while <i>at_least_one_bounce_radiance</i> computes both the direct lighting (radiance from 1 bounce) and indirect lighting (radiance from 2+ bounces). In order to implement indirect lighting, we compute the total sum of the radiance along the path of a series of rays starting from a light source and ending at the camera. We do this by starting from the ray entering the camera and recursively working backwards by computing a ray that enters the same point as our current ray's intersection location. This new ray is probabilistically generated from a probability density function based on the properties at the intersection point. Each time we recurse, we find the intersection with a primitive if there is one and add the radiance from that point. To figure out the max length of the number of rays, we use a russian roulette technique in which we only recurse with a certain probability in our case 60% of the time or a hard cap of <i>max_depth_rays</i> rays. This gives us an unbiased estimator that is expected to run for a finite amount of time.
 </p>
 <br>
 
@@ -407,12 +407,16 @@ You will probably want to use the instructional machines for the above renders i
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example1.dae</figcaption>
+        <img src="images/part4/bench.png" align="middle" width="233px"/>
+        <figcaption>Global illumination of bench</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>example2.dae</figcaption>
+        <img src="images/part4/dragon.png" align="middle" width="233px"/>
+        <figcaption>Global illumination of dragon</figcaption>
+      </td>
+      <td>
+        <img src="images/part4/wall-e.png" align="middle" width="233px"/>
+        <figcaption>Global illumination of Wall-e</figcaption>
       </td>
     </tr>
   </table>
@@ -427,19 +431,19 @@ You will probably want to use the instructional machines for the above renders i
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Only direct illumination (example1.dae)</figcaption>
+        <img src="images/part4/wall-e_direct.png" align="middle" width="400px"/>
+        <figcaption>Only direct illumination (wall-e.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Only indirect illumination (example1.dae)</figcaption>
+        <img src="images/part4/wall-e_indirect.png" align="middle" width="400px"/>
+        <figcaption>Only indirect illumination (wall-e.dae)</figcaption>
       </td>
     </tr>
   </table>
 </div>
 <br>
 <p>
-    YOUR EXPLANATION GOES HERE
+    The image rendered with only direct illumination is much brighter than the image rendered with only indirect illumination. This makes sense as the direct illumination should account for the light coming from the light source while indirect illumination does not use the light source and instead depends on light bouncing off another source first. If we were to imagine light bouncing off Wall-E, this makes sense as many of the surfaces facing outwards (such as Wall-E's head and front body) are darker as light cannot bounce off another surface to fall on these regions, while surfaces that face each other or are at an angle to another surface (such as the space between Wall-E's eyes) do allow for the bouncing to occur.
 </p>
 <br>
 
@@ -451,27 +455,27 @@ You will probably want to use the instructional machines for the above renders i
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/part4/CBbunny_0.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 0 (CBbunny.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/part4/CBbunny_1.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 1 (CBbunny.dae)</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/part4/CBbunny_2.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 2 (CBbunny.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/part4/CBbunny_3.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 3 (CBbunny.dae)</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="images/part4/CBbunny_100.png" align="middle" width="400px"/>
         <figcaption>max_ray_depth = 100 (CBbunny.dae)</figcaption>
       </td>
     </tr>
@@ -479,7 +483,7 @@ You will probably want to use the instructional machines for the above renders i
 </div>
 <br>
 <p>
-    YOUR EXPLANATION GOES HERE
+    At lower <i>max_ray_depth</i>s the image is darker as there are fewer, if any, ray bounces allowed. As more ray bounces are allowed, the scene gets progressively brighter and the shadows diminish although not fully. The effects of increasing the <i>max_ray_depth</i> at higher values such as 3 and onwards does not produce as notible difference as from 1 to 3.
 </p>
 <br>
 
@@ -491,45 +495,45 @@ You will probably want to use the instructional machines for the above renders i
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>1 sample per pixel (example1.dae)</figcaption>
+        <img src="images/part4/dragon_l1.png" align="middle" width="400px"/>
+        <figcaption>1 sample per pixel (dragon.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>2 samples per pixel (example1.dae)</figcaption>
-      </td>
-    </tr>
-    <tr align="center">
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>4 samples per pixel (example1.dae)</figcaption>
-      </td>
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>8 samples per pixel (example1.dae)</figcaption>
+        <img src="images/part4/dragon_l2.png" align="middle" width="400px"/>
+        <figcaption>2 samples per pixel (dragon.dae)</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>16 samples per pixel (example1.dae)</figcaption>
+        <img src="images/part4/dragon_l4.png" align="middle" width="400px"/>
+        <figcaption>4 samples per pixel (dragon.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>64 samples per pixel (example1.dae)</figcaption>
+        <img src="images/part4/dragon_l8.png" align="middle" width="400px"/>
+        <figcaption>8 samples per pixel (dragon.dae)</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>1024 samples per pixel (example1.dae)</figcaption>
+        <img src="images/part4/dragon_l16.png" align="middle" width="400px"/>
+        <figcaption>16 samples per pixel (dragon.dae)</figcaption>
+      </td>
+      <td>
+        <img src="images/part4/dragon_l64.png" align="middle" width="400px"/>
+        <figcaption>64 samples per pixel (dragon.dae)</figcaption>
+      </td>
+    </tr>
+    <tr align="center">
+      <td>
+        <img src="images/part4/dragon_l1024.png" align="middle" width="400px"/>
+        <figcaption>1024 samples per pixel (dragon.dae)</figcaption>
       </td>
     </tr>
   </table>
 </div>
 <br>
 <p>
-    YOUR EXPLANATION GOES HERE
+    When we use fewer samples per pixel, the image is noticibly noisier with much more graininess to the extent that even some of the features are hard to make out. As we use more samples per pixel, the image starts to become much smoother and the graininess disappears. The features are clearer and the color is more uniform. This makes sense because as we use more samples in our the Monte Carlo estimation, we decrease the variance of our approximatation thus giving us an increased chance of yielding the true value of the pixel. 
 </p>
 <br>
 
