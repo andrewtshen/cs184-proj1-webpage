@@ -542,8 +542,44 @@ Pick one scene and render it with at least 2048 samples per pixel. Show a good s
   Explain adaptive sampling. Walk through your implementation of the adaptive sampling.
 </h3>
 <p>
-    YOUR RESPONSE GOES HERE
+    Adaptive sampling allows us to eliminate noise in our renderings by using a high number of samples per pixel efficiently.
+    Using a fixed number of samples per pixel can be slow and inefficient, especially when we start to increase the number of samples.
+    Adaptive sampling solves this problem by taking less samples for pixels that converge faster than others. It achieves this by checking 
+    if a pixel is within a certain range with a confidence interval of 95% after some number of samples. If it is, then we
+    stop sampling at that pixel.
+
+    In our implementation of adaptive sampling, we kept track of the number of samples taken so far at a pixel and checked
+    if it satisfied our condition every samplesPerBatch samples. We also computed the illuminance for each sample and added
+    it to s1 and s2, two variables that kept track of the sum of each sample's illuminance and illuminance squared, respectively.
+    In our condition that checks if a pixel has converged, we used s1 and s2 to calculate the mean and variance of all samples 
+    so far. Then we used the mean, variance, and max tolerance to calculate the final condition. If the condition is satisfied,
+    we stop taking samples, and if not, we continue taking samples until the condition is satisfied or until we reach the maximum
+    number of samples.
 </p>
+<br>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/s1_s2.png" align="middle" width="400px"/>
+        <figcaption>S1 and S2</figcaption>
+      </td>
+      <td>
+        <img src="images/mean_variance.png" align="middle" width="400px"/>
+        <figcaption>Mean and variance</figcaption>
+      </td>
+      <td>
+        <img src="images/I_variable.png" align="middle" width="400px"/>
+        <figcaption>Variable I</figcaption>
+      </td>
+      <td>
+        <img src="images/convergence_condition.png" align="middle" width="400px"/>
+        <figcaption>Convergence condition</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
 <br>
 
 <h3>
@@ -554,22 +590,22 @@ Pick one scene and render it with at least 2048 samples per pixel. Show a good s
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Rendered image (example1.dae)</figcaption>
+        <img src="images/bunny_2048_1.png" align="middle" width="400px"/>
+        <figcaption>Rendered image (CBbunny.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Sample rate image (example1.dae)</figcaption>
+        <img src="images/bunny_2048_1_rate.png" align="middle" width="400px"/>
+        <figcaption>Sample rate image (CBbunny.dae)</figcaption>
       </td>
     </tr>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Rendered image (example2.dae)</figcaption>
+        <img src="images/walle_2048_1.png" align="middle" width="400px"/>
+        <figcaption>Rendered image (wall-e.dae)</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Sample rate image (example2.dae)</figcaption>
+        <img src="images/walle_2048_1_rate.png" align="middle" width="400px"/>
+        <figcaption>Sample rate image (wall-e.dae)</figcaption>
       </td>
     </tr>
   </table>
