@@ -36,49 +36,57 @@
     <h2 align="middle">Webpage URL: <a href="https://shenandrew.me/cs184-webpages/proj3-2/">https://shenandrew.me/cs184-webpages/proj3-2/</a></h2>
 
     <div class="padded">
-
-        
-        * NOTE: For this project, you will choose TWO out of the four given parts to complete. One of those parts must be Part 1 or Part 2. In other words, you can choose any combination of two parts except the pair (Part 3, Part 4).
-
-
+    	<p>
+	    	In this project, we dive deeper into the intracacies of building a good ray tracer by adding on two new features: the ability to render mirror and glass materials as well as the microfacet material. We approached these new features by first identifying the places in the original code that would require updates and then understanding and implementing the necessary formulas.
+	    	The problems that we encountered were mostly slight implementation errors that came from missing small bits and pieces that ended up being important to the final render. One example of this is when we forgot to check if wi and wo were valid, which led to some unexpected errors.
+	    	Overall, we learned a lot about how to improve our ray tracer with features that look realistic. Though the project was mostly careful coding and following formulas, it gave us valuable insight into how to build physically accurate representations of materials.
+    	</p>
+       
         <h3 align="middle">Part 1. Mirror and Glass Materials</h3>
+        <p>
+        	In this part, we implement code to model the reflection and refraction of light through mirror and glass models. First, we implement functions to reflect and refract a ray of light given a set of parameters. Then, we implemented the mirror and glass materials using the Schlick's approximation to simply evaluate the Fresnel Equations. 
+        </p>
 
         <p><b>
             Show a sequence of six images of scene `CBspheres.dae` rendered with `max_ray_depth` set to 0, 1, 2, 3, 4, 5, and 100. The other settings should be at least 64 samples per pixel and 4 samples per light. Make sure to include all screenshots.
         </b></p>
         <br>
         <table style="width:100%">
-            <tr>
-            <td>
-                <img src="images/spheres_0.png" align="middle" width="400px"/>
-                <figcaption>Max ray depth 0</figcaption>
-            </td>
-            <td>
-                <img src="images/spheres_1.png" align="middle" width="400px"/>
-                <figcaption>Max ray depth 1</figcaption>
-            </td>
-            <td>
-                <img src="images/spheres_2.png" align="middle" width="400px"/>
-                <figcaption>Max ray depth 2</figcaption>
-            </td>
-            <td>
-                <img src="images/spheres_3.png" align="middle" width="400px"/>
-                <figcaption>Max ray depth 3</figcaption>
-            </td>
+            <tr align="center">
+	            <td>
+	                <img src="images/spheres_0.png" align="middle" width="400px"/>
+	                <figcaption>Max ray depth 0</figcaption>
+	            </td>
+	            <td>
+	                <img src="images/spheres_1.png" align="middle" width="400px"/>
+	                <figcaption>Max ray depth 1</figcaption>
+	            </td>
             </tr>
-            <tr>
-            <td>
-                <img src="images/spheres_4.png" align="middle" width="400px"/>
-                <figcaption>Max ray depth 4</figcaption>
-            </td>
-            <td>
-                <img src="images/spheres_5.png" align="middle" width="400px"/>
-                <figcaption>Max ray depth 5</figcaption>
-            </td>
-            <td>
-                <img src="images/spheres_100.png" align="middle" width="400px"/>
-                <figcaption>Max ray depth 100</figcaption>
-                </td>
+            <tr align="center">
+            	<td>
+	                <img src="images/spheres_2.png" align="middle" width="400px"/>
+	                <figcaption>Max ray depth 2</figcaption>
+	            </td>
+	            <td>
+	                <img src="images/spheres_3.png" align="middle" width="400px"/>
+	                <figcaption>Max ray depth 3</figcaption>
+	            </td>
+            </tr>
+            <tr align="center">
+	            <td>
+	                <img src="images/spheres_4.png" align="middle" width="400px"/>
+	                <figcaption>Max ray depth 4</figcaption>
+	            </td>
+	            <td>
+	                <img src="images/spheres_5.png" align="middle" width="400px"/>
+	                <figcaption>Max ray depth 5</figcaption>
+	            </td>
+            </tr>
+            <tr align="center">
+            	<td>
+	                <img src="images/spheres_100.png" align="middle" width="400px"/>
+	                <figcaption>Max ray depth 100</figcaption>
+	            </td>
             </tr>
         </table>
         <br>
@@ -108,26 +116,74 @@
 
 
         <h3 align="middle">Part 2. Microfacet Material</h3>
-        <p><b>
-            Show a screenshot sequence of 4 images of scene `CBdragon_microfacet_au.dae` rendered with $\alpha$ set to 0.005, 0.05, 0.25 and 0.5. The other settings should be at least 128 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Describe the differences between different images. Note that, to change the $\alpha$, just open the .dae file and search for `microfacet`.
-        </b></p>
         <p>
-            Your response goes here.
+        	In this part, we implemented a microfacet model that considers only the isotropic rough conductors that reflect light. To do this, we implemented a BRDF evaluation function for microfacets that describes how light will reflect off of the material. Then, we used the microfacets' normal distribution function (NDF) in order to determine the distribution of the materials microfacets' as well as computed the Fresnel Term, a value that controls how different air conductors will react to light. Lastly, we implement importance sampling, which helps to speed up our computation for each ray by only sampling the regions that are important.
+        </p>
+
+        <p><b>
+            Show a screenshot sequence of 4 images of scene `CBdragon_microfacet_au.dae` rendered with alpha set to 0.005, 0.05, 0.25 and 0.5. The other settings should be at least 128 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Describe the differences between different images. Note that, to change the alpha, just open the .dae file and search for `microfacet`.
+        </b></p>
+        <table style="width:100%">
+            <tr align="center">
+            <td>
+                <img src="images/dragon0.5.png" align="middle" width="400px"/>
+                <figcaption>Dragon alpha=0.5</figcaption>
+            </td>
+            <td>
+                <img src="images/dragon0.25.png" align="middle" width="400px"/>
+                <figcaption>Dragon alpha=0.25</figcaption>
+            </td>
+            </tr>
+            <tr align="center">
+            <td>
+                <img src="images/dragon0.05.png" align="middle" width="400px"/>
+                <figcaption>Dragon alpha=0.05</figcaption>
+            </td>
+            <td>
+                <img src="images/dragon0.005.png" align="middle" width="400px"/>
+                <figcaption>Dragon alpha=0.005</figcaption>
+            </td>
+            </tr>
+        </table>
+
+        <p>
+        	As the alpha value increases, the material becomes more glossier and loses its diffuseness. This makes sense as the alpha value controls the roughness of the material with higher alpha corresponding to a rougher material, which gives a more diffuse look. On the other hand, a lower alpha corresponds to smoother material, which gives a more specular look. In addition, the graininess of the image increased with more white speckles in the image as a result of the change in specularity.
         </p>
         <br>
         <p><b>
             Show two images of scene `CBbunny_microfacet_cu.dae` rendered using cosine hemisphere sampling (default) and your importance sampling. The sampling rate should be fixed at 64 samples per pixel and 1 samples per light. The number of bounces should be at least 5. Briefly discuss their difference.
         </b></p>
+        <table style="width:100%">
+            <tr align="center">
+            <td>
+                <img src="images/bunny_cosine.png" align="middle" width="400px"/>
+                <figcaption>Bunny with cosine hemisphere sampling (default)</figcaption>
+            </td>
+            <td>
+                <img src="images/bunny_imp.png" align="middle" width="400px"/>
+                <figcaption>Bunny with importance sampling</figcaption>
+            </td>
+            </tr>
+        </table>
         <p>
-            Your response goes here.
+            The two images are similar in shape, however the color of the bunny is drastically different. In the first image of the bunny with cosine hemisphere sampling (default), it is clear that the bunny has not yet fully rendered with a lot of graininess in the form of black spots in the bunny. In contrast, the importance sampled bunny looks much better and the material is more consistent throughout. The colors are clearer and the material is smoother throughout.
         </p>
         <br>
         <p><b>
             Show at least one image with some other conductor material, replacing `eta` and `k`. Note that you should look up values for real data rather than modifying them arbitrarily. Tell us what kind of material your parameters correspond to. 
         </b></p>
+        <table style="width:100%">
+            <tr align="center">
+            <td>
+                <img src="images/dragon_chromium.png" align="middle" width="400px"/>
+                <figcaption>Chromium Dragon (alpha = 0.5)</figcaption>
+            </td>
+            </tr>
+        </table>
         <p>
-            Your response goes here.
+            The eta values for Chromium are: [3.1743 3.1800 2.4650] and the k values are [3.3000 3.3300 3.2150]. There values were computed <a href="https://refractiveindex.info/?shelf=main&book=Cr&page=Johnson">here</a> by looking up Chromium and evaluating the graph at wavelengths 614 nm (red), 549 nm (green) and 466 nm (blue).
         </p>
+
         <br>
         
         
@@ -140,28 +196,28 @@
             In a few sentences, explain the ideas behind environment lighting (i.e. why we do it/how it works).
         </b></p>
         <p>
-            Your response goes here.
+        	N/A
         </p>
         <br>
         <p><b>
             Show the *probability_debug.png* file for the *.exr* file you are using, generated using the `save_probability_debug()` helper function after initializing your probability distributions.
         </b></p>
         <p>
-            Your response goes here.
+        	N/A
         </p>
         <br>
         <p><b>
             Use the `bunny_unlit.dae` scene and your environment map *.exr* file and render two pictures, one with uniform sampling and one with importance sampling. Use 4 samples per pixel and 64 samples per light in each. Compare noise levels. Make sure to include all screenshots.
         </b></p>
         <p>
-            Your response goes here.
+        	N/A
         </p>
         <br>
         <p><b>
             Use a different image (if you did part 2, we recommend `bunny_microfacet_cu_unlit.dae`) and your environment map *.exr* file and render two pictures, one with uniform sampling and one with importance sampling. Use 4 samples per pixel and 64 samples per light in each. Compare noise levels. Make sure to include all screenshots.
         </b></p>
         <p>
-            Your response goes here.
+        	N/A
         </p>
         <br>
 
