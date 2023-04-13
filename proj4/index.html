@@ -23,9 +23,9 @@
 
 <body>
 
-<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2017</h1>
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2023</h1>
 <h1 align="middle">Project 4: Cloth Simulator</h1>
-<h2 align="middle">YOUR NAME, CS184-??</h2>
+<h2 align="middle">Andrew Shen and Ryan Chan, CS184-??</h2>
 
 <br><br>
 
@@ -34,8 +34,192 @@
 <h2 align="middle">Overview</h2>
 <p>Give a high-level overview of what you implemented in this project. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the project.</p>
 
-<h2 align="middle">Part I: Masses and springs</h2>
+<h2 align="middle">Part 1: Masses and springs</h2>
 
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/part1_1.png" align="middle" width="400px"/>
+        <figcaption>Rectangular view</figcaption>
+      </td>
+      <td>
+        <img src="images/part1_2.png" align="middle" width="400px"/>
+        <figcaption>Diagonal view</figcaption>
+      </td>
+    </tr>
+    <tr align="center">
+      <td>
+        <img src="images/part1_no_shearing.png" align="middle" width="400px"/>
+        <figcaption>No shearing</figcaption>
+      </td>
+      <td>
+        <img src="images/part1_only_shearing.png" align="middle" width="400px"/>
+        <figcaption>Only shearing</figcaption>
+      </td>
+      <td>
+        <img src="images/part1_all_constraints.png" align="middle" width="400px"/>
+        <figcaption>All constraints</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br>
+
+<h2 align="middle">Part 2: Simulation via numerical integration</h2>
+
+<p>
+  As we increase the spring constant, the springs become tighter, requiring more
+  force to bend and stretch the cloth. As seen below, a cloth with a low spring constant stretches more than a cloth with a high spring constant.
+</p>
+
+<br>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/part2_low_ks.png" align="middle" width="400px"/>
+        <figcaption>Low spring constant (500)</figcaption>
+      </td>
+      <td>
+        <img src="images/part2_high_ks.png" align="middle" width="400px"/>
+        <figcaption>High spring constant (50,000)</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br>
+
+<p>
+  Varying the density of the cloth is similar to varying the spring constant. As seen below,
+  a higher density produces similar effects as a low spring constant, where the cloth stretches more easily. 
+  On the other hand, a lower density produces similar effects as a high spring constant, where the cloth does not
+  stretch much at all.
+</p>
+
+<br>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/part2_low_density.png" align="middle" width="400px"/>
+        <figcaption>Low density (1)</figcaption>
+      </td>
+      <td>
+        <img src="images/part2_high_density.png" align="middle" width="400px"/>
+        <figcaption>High density (500)</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br>
+
+<p>
+  Damping affects how much the cloth floats and bounces. As seen below, low damping 
+  results in the cloth bouncing a lot and creating many ripples. On the other hand, high damping
+  results in the cloth barely bouncing and reaching its resting state very quickly.
+</p>
+
+<br>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/part2_low_damping.png" align="middle" width="400px"/>
+        <figcaption>Low damping (0%)</figcaption>
+      </td>
+      <td>
+        <img src="images/part2_high_damping.png" align="middle" width="400px"/>
+        <figcaption>High damping (1%)</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/part2_pinned4.png" align="middle" width="400px"/>
+        <figcaption>Pinned4 in its final resting state</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br>
+
+<h2 align="middle">Part 4: Handling self-collitions</h2>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/part4_1.png" align="middle" width="400px"/>
+        <figcaption>Early stage</figcaption>
+      </td>
+      <td>
+        <img src="images/part4_2.png" align="middle" width="400px"/>
+        <figcaption>Self-collision</figcaption>
+      </td>
+    </tr>
+    <tr align="center">
+      <td>
+        <img src="images/part4_3.png" align="middle" width="400px"/>
+        <figcaption>More self-collision</figcaption>
+      </td>
+      <td>
+        <img src="images/part4_4.png" align="middle" width="400px"/>
+        <figcaption>Restful</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br>
+
+<p>
+  Varying the density and spring constant changes how the cloth folds on itself. As seen below, with a low spring constant
+  or high density, the folds are much tighter and narrower, resulting in many more folds. In contrast, a 
+  high spring constant or low density results in fewer, wider folds.
+</p>
+
+<br>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/part4_low_density.png" align="middle" width="400px"/>
+        <figcaption>Low density</figcaption>
+      </td>
+      <td>
+        <img src="images/part4_high_density.png" align="middle" width="400px"/>
+        <figcaption>High density</figcaption>
+      </td>
+    </tr>
+    <tr align="center">
+      <td>
+        <img src="images/part4_low_ks.png" align="middle" width="400px"/>
+        <figcaption>Low spring constant</figcaption>
+      </td>
+      <td>
+        <img src="images/part4_high_ks.png" align="middle" width="400px"/>
+        <figcaption>High spring constant</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br>
 
 </body>
 </html>
