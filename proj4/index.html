@@ -25,7 +25,7 @@
 
 <h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2023</h1>
 <h1 align="middle">Project 4: Cloth Simulator</h1>
-<h2 align="middle">Andrew Shen and Ryan Chan, CS184-??</h2>
+<h2 align="middle">Andrew Shen and Ryan Chan, CS184-SP23</h2>
 
 <br><br>
 
@@ -230,6 +230,81 @@
 </div>
 
 <br>
+
+<h2 align="middle">Part 3: Handling collisions with other objects</h2>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/proj4_part3_500.png" align="middle" width="400px"/>
+        <figcaption>ks = 500</figcaption>
+      </td>
+      <td>
+        <img src="images/proj4_part3_5000.png" align="middle" width="400px"/>
+        <figcaption>ks = 5000</figcaption>
+      </td>
+    </tr>
+    <tr align="center">
+    	<td>
+    	  <img src="images/proj4_part3_50000.png" align="middle" width="400px"/>
+    	  <figcaption>ks = 50000</figcaption>
+    	</td>
+    </tr>
+  </table>
+</div>
+
+<p>
+	When changing the spring constant, we can see that for lower values of ks, the cloth is more "droopy" and hangings over the sphere more. It holds its shape less and adjusts to the shape of the sphere. For higher values of ks, the cloth is more stiff and holds it's shape a little more.
+</p>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+    	<td>
+    	  <img src="images/proj4_part3_cloth.png" align="middle" width="400px"/>
+    	  <figcaption>Peaceful Cloth</figcaption>
+    	</td>
+    </tr>
+  </table>
+</div>
+
+<tr>
+
+<h2 align="middle">Part 5: Shaders</h2>
+
+<p>
+	A shader program is an isolated program that runs on the GPU and executes the pipeline in order to compute the lighting effects for each frame. Two basic shader types are the vertex and fragment shaders. The vertex shader applies computations to the vertices of objects within the scene to change their geometric properties and compute the final location of the vertex in addition to information for use in the fragment shaders. The fragment shader takes in the information computed by the vertex shaders and compute the color of the fragment. A fragment is akin to a sample of the object.
+</p>
+
+<p>
+	The Blinn-Phong shading model is a model that allows the user to compute lighting coming off of an object originating from a light source in the scene. The Blinn-Phong model uses 3 components: an ambient component, a specular component, and the diffuse component. The combination of these three components give way to realistic lighting. By varying different constants within the model, one can change the appearance of the object by giving it properties of different materials.
+</p>
+
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="images/proj4_part5_specular.png" align="middle" width="400px"/>
+        <figcaption>Specular</figcaption>
+      </td>
+      <td>
+        <img src="images/proj4_part5_diffuse.png" align="middle" width="400px"/>
+        <figcaption>Diffuse</figcaption>
+      </td>
+    </tr>
+    <tr align="center">
+		<td>
+		  <img src="images/proj4_part5_ambient.png" align="middle" width="400px"/>
+		  <figcaption>Ambient</figcaption>
+		</td>
+		<td>
+    	  <img src="images/proj4_part5_phong.png" align="middle" width="400px"/>
+    	  <figcaption>Total Blinn-Phong</figcaption>
+    	</td>
+    </tr>
+  </table>
+</div>
 
 </body>
 </html>
